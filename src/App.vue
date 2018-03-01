@@ -58,6 +58,7 @@ body {
 
 h1 {
   text-align: center;
+  font-size: 3rem;
 }
 
 hr {
@@ -66,8 +67,8 @@ hr {
 }
 
 .container {
-  max-width: 800px;
-  margin: 1rem auto;
+  max-width: 600px;
+  margin: 3rem auto;
 }
 
 
