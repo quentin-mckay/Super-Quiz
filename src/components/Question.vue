@@ -31,7 +31,7 @@ export default {
       }
 
       this.num1 = this.generateRandomNumber()
-      this.num2 = this.generateRandomNumber(5)
+      this.num2 = this.generateRandomNumber()
 
       // create correct answer
       let mode = this.generateRandomNumber(0, 2)
@@ -57,9 +57,11 @@ export default {
     },
     guess(index) {
       if (this.options[index] === this.correctAnswer) {
+        this.$emit('answered', true)
         console.log('correct')
       }
       else {
+        this.$emit('answered', false)
         console.log('wrong')
       }
     }

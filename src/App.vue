@@ -2,9 +2,7 @@
   <div class="container">
     <h1>The Super Quiz</h1>
     <hr>
-    <transition>
-      <component :is="selectedComponent"></component>
-    </transition>   
+    <component :is="selectedComponent" @answered="answered" @clickedNext="clickedNext"></component>
   </div>
 </template>
 
@@ -20,7 +18,21 @@ export default {
   },
   data() {
     return {
-      selectedComponent: 'app-question'
+      selectedComponent: 'app-question',
+      answer: ''
+    }
+  },
+  methods: {
+    answered(isAnswerCorrect) {
+      if (isAnswerCorrect === false) {
+        alert('Wrong. Try again!')
+      }
+      else {
+        this.selectedComponent = 'app-answer'
+      }
+    },
+    clickedNext() {
+      this.selectedComponent = 'app-question'
     }
   }
 

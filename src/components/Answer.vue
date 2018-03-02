@@ -2,13 +2,17 @@
   <div class="wrapper">
     <p class="message">That's Correct!</p>
     <hr>
-    <button>Next Question</button>
+    <button @click="clickedNext">Next Question</button>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    clickedNext() {
+      this.$emit('clickedNext')
+    }
+  }
 }
 </script>
 
