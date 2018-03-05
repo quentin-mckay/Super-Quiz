@@ -2,7 +2,9 @@
   <div class="container">
     <h1>The Super Quiz</h1>
     <hr>
-    <component :is="selectedComponent" @answered="answered" @clickedNext="clickedNext"></component>
+    <transition name="flip" mode="out-in" type="transition">
+      <component :is="selectedComponent" @answered="answered" @clickedNext="clickedNext"></component>
+    </transition>
   </div>
 </template>
 
@@ -54,6 +56,7 @@ export default {
   --button-text: white;
 
   --border-radius: 5px;
+  --transition-time: 0.3s;
 }
 
 * {
@@ -83,5 +86,19 @@ hr {
   margin: 3rem auto;
 }
 
+
+/* ===== vue transition ===== */
+.flip-enter, .flip-leave-to {
+  transform: rotateY(90deg);
+  /* transform: scaleX(0); */
+}
+
+.flip-enter-active {
+  transition: all var(--transition-time) ease-out;
+}
+
+.flip-leave-active {
+  transition: all var(--transition-time) ease-in;
+}
 
 </style>

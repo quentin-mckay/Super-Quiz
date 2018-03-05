@@ -38,9 +38,11 @@ export default {
 button {
   background: var(--button-bg);
   color: var(--button-text);
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem;
   border: none;
   border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 

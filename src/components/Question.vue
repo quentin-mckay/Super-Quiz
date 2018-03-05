@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :class="{ flash: flashActive }">
     <p class="question">What's {{ num1 }} {{ operator }} {{ num2 }} ?</p>
     <div class="option-grid">
       <div class="option" v-for="(option, index) in options" :key="option.id" @click="guess(index)">
@@ -20,7 +20,8 @@ export default {
       num2: 0,
       operator: '+',
       options: [],
-      correctAnswer: 0
+      correctAnswer: 0,
+      flashActive: false
     }
   },
   methods: {
@@ -45,7 +46,8 @@ export default {
       }
 
       // put correct answer in random spot
-      let correctPosition = this.generateRandomNumber(3);
+      let correctPosition = this.generateRandomNumber(0, 4);
+      console.log(correctPosition)
       nums.splice(correctPosition, 0, this.correctAnswer)
 
       // set data
@@ -58,12 +60,31 @@ export default {
     guess(index) {
       if (this.options[index] === this.correctAnswer) {
         this.$emit('answered', true)
-        console.log('correct')
+        this.flashGreen(event.target)
       }
       else {
-        this.$emit('answered', false)
-        console.log('wrong')
+        this.flashRed(event.target)
       }
+    },
+    flashRed(el) {
+
+      let keyframes = [
+        { backgroundColor: 'red', transform: 'none'},
+        { transform: 'translateX(10px)', offset: 0.3 },
+        { transform: 'translateX(-10px)', offset: 0.7 },
+        { backgroundColor: 'red', transform: 'none'}
+      ]
+
+      el.animate(keyframes, 400)
+    },
+    flashGreen(el) {
+      let keyframes = [
+        { backgroundColor: 'lightgreen' },
+        { backgroundColor: 'initial' },
+        
+      ]
+
+      el.animate(keyframes, 1000)
     }
   },
   created() {
@@ -91,12 +112,12 @@ export default {
 }
 
 .option-grid {
-  width: 50%;
-  margin: 0 auto;
+  width: 40%;
+  margin: 0.5rem auto;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+  grid-row-gap: 1.5rem;
   justify-items: center;
 
   padding: 1rem;
@@ -108,6 +129,9 @@ export default {
   background: var(--option-bg);
   color: var(--option-text);
   border-radius: var(--border-radius);
+  cursor: pointer;
+
+  transform-origin: center bottom;
 }
 </style>
 
